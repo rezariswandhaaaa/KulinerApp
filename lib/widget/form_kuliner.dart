@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kuliner_app/model/kuliner.dart';
 import 'package:kuliner_app/screen/home_screen.dart';
 import 'package:kuliner_app/screen/map_screen.dart';
 
 class FormKuliner extends StatefulWidget {
-  
-
   const FormKuliner({super.key});
 
   @override
@@ -31,13 +30,20 @@ class _FormKulinerState extends State<FormKuliner> {
                 Container(
                   margin: const EdgeInsets.all(10),
                   child: TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        labelText: "Nama Kuliner",
-                        hintText: "Masukkan Nama Kuliner",
-                      ),
-                      controller: _namaController),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      labelText: "Nama Kuliner",
+                      hintText: "Masukkan Nama Kuliner",
+                    ),
+                    controller: _namaController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Nama kuliner tidak boleh kosong';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
                 Container(
                   width: double.infinity,
@@ -91,16 +97,24 @@ class _FormKulinerState extends State<FormKuliner> {
                 Container(
                   margin: const EdgeInsets.all(10),
                   child: TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      labelText: "Nomor Telepon",
-                      hintText: "Masukkan Nomor Telepon",
-                    ),
-                    controller: _noteleponController,
-                  ),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        labelText: "Nomor Telepon",
+                        hintText: "Masukkan Nomor Telepon",
+                      ),
+                      controller: _noteleponController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Nomor Telepon tidak boleh kosong';
+                        } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                          return 'Nomor telepon harus berupa angka';
+                        } else if (value.length < 10 || value.length > 12) {
+                          return 'Nomor telepon harus memiliki panjang 10-12 digit';
+                        }
+                        return null;
+                      }),
                 ),
-
                 Container(
                   margin: const EdgeInsets.all(10),
                   child: ElevatedButton(
@@ -118,7 +132,6 @@ class _FormKulinerState extends State<FormKuliner> {
                       },
                       child: const Text("Submit")),
                 )
-
               ],
             ),
           )),

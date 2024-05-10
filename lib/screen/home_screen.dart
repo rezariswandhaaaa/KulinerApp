@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Daftar Orang"),
+        title: const Text("Daftar Tempat Kuliner"),
       ),
       body: FutureBuilder<List<Kuliner>>(
         future: _controller.getPlace(),
