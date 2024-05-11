@@ -1,58 +1,58 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class Kuliner {
   int? id;
-  final String namaTmp;
+  final String nama;
   final String alamat;
-  final String telepon;
-
+  final String nomor;
   Kuliner({
-    required this.id,
-    required this.namaTmp,
+    this.id,
+    required this.nama,
     required this.alamat,
-    required this.telepon,
+    required this.nomor,
   });
+
 
   Kuliner copyWith({
     int? id,
-    String? namaTmp,
+    String? nama,
     String? alamat,
-    String? telepon,
+    String? nomor,
   }) {
     return Kuliner(
       id: id ?? this.id,
-      namaTmp: namaTmp ?? this.namaTmp,
+      nama: nama ?? this.nama,
       alamat: alamat ?? this.alamat,
-      telepon: telepon ?? this.telepon,
+      nomor: nomor ?? this.nomor,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'namaTmp': namaTmp,
+      'nama': nama,
       'alamat': alamat,
-      'telepon': telepon,
+      'nomor': nomor,
     };
   }
 
   factory Kuliner.fromMap(Map<String, dynamic> map) {
     return Kuliner(
       id: map['id'] != null ? map['id'] as int : null,
-      namaTmp: map['namaTmp'] as String,
+      nama: map['nama'] as String,
       alamat: map['alamat'] as String,
-      telepon: map['telepon'] as String,
+      nomor: map['nomor'] as String,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Kuliner.fromJson(String source) =>
-      Kuliner.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Kuliner.fromJson(String source) => Kuliner.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Kuliner(id: $id, nmTempat: $namaTmp, alamat: $alamat, telepon: $telepon)';
+    return 'Kuliner(id: $id, nama: $nama, alamat: $alamat, nomor: $nomor)';
   }
 
   @override
@@ -61,16 +61,16 @@ class Kuliner {
   
     return 
       other.id == id &&
-      other.namaTmp == namaTmp &&
+      other.nama == nama &&
       other.alamat == alamat &&
-      other.telepon == telepon;
+      other.nomor == nomor;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      namaTmp.hashCode ^
+      nama.hashCode ^
       alamat.hashCode ^
-      telepon.hashCode;
+      nomor.hashCode;
   }
 }

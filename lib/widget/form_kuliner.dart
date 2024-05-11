@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:kuliner_app/controller/kuliner_controller.dart';
 import 'package:kuliner_app/model/kuliner.dart';
 import 'package:kuliner_app/screen/home_screen.dart';
 import 'package:kuliner_app/screen/map_screen.dart';
 
+
 class FormKuliner extends StatefulWidget {
-  const FormKuliner({super.key});
+  
+
+  const FormKuliner({super.key,});
 
   @override
   State<FormKuliner> createState() => _FormKulinerState();
 }
 
 class _FormKulinerState extends State<FormKuliner> {
+  final kulinerController = KulinerController();
   final _formKey = GlobalKey<FormState>();
   final _namaController = TextEditingController();
   final _noteleponController = TextEditingController();
 
   String? _alamat;
+
+  get _id => null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,7 +129,18 @@ class _FormKulinerState extends State<FormKuliner> {
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          
+                          var result = await kulinerController.addPlace(
+                            Kuliner(
+                                id: _id,
+                                nama: _namaController.text,
+                                alamat: _alamat!,
+                                nomor: _noteleponController.text),
+                          );
+
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(result['message'])),
+                          );
 
                           Navigator.pushAndRemoveUntil(
                               context,

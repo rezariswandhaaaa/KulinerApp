@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class KulinerService {
-  final String baseUrl = '';
-  final String endpoint = '';
+  final String baseUrl = 'https://10.0.2.2/flutterapi/crudkuliner/';
+  final String endpoint = 'api.php';
 
   Uri getUri(String path) {
     return Uri.parse("$baseUrl$path");
@@ -14,7 +14,7 @@ class KulinerService {
   Future<http.Response> addPlace(Map<String, String> data) async {
     var request = http.MultipartRequest('POST', getUri(endpoint))
       ..fields.addAll(data)
-      ..headers['Content-Type'] = 'application/json';
+      ..headers['Content-Type'] = 'multipart/form-data';
 
     return await http.Response.fromStream(await request.send());
   }
@@ -29,10 +29,10 @@ class KulinerService {
         });
 
     if (response.statusCode == 200) {
-      final Map<String, dynamic> decodeResponse = json.decode(response.body);
-      return decodeResponse['people'];
+      final List<dynamic> decodeResponse = json.decode(response.body);
+      return decodeResponse;
     } else {
-      throw Exception('Failed to load people: ${response.reasonPhrase}');
+      throw Exception('Failed to load Tempat Kuliner: ${response.reasonPhrase}');
     }
   }
 
