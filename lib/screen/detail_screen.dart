@@ -58,7 +58,14 @@ class _DetailScreenState extends State<DetailScreen> {
         backgroundColor: const Color.fromARGB(255, 153, 236, 202),
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const EditScreen()));
+              MaterialPageRoute(builder: (context) =>  EditScreen(
+                kuliner: Kuliner(
+                  id: kuliner.id,
+                  nama: kuliner.nama,
+                  alamat: kuliner.alamat,
+                  nomor: kuliner.nomor,
+                  ),
+                )));
         },
         child: const Icon(
           Icons.edit,
